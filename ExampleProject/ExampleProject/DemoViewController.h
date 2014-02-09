@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DemoViewController.h
 //  ExampleProject
 //
 //  Created by Kiran Panesar on 09/02/2014.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface DemoViewController : UIViewController
+
+@property (strong, nonatomic, readonly) UIButton *showImageButton;
 
 @end

@@ -13,14 +13,16 @@
 		6BD4848718A7BDAA0066A7D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BD4848518A7BDAA0066A7D2 /* InfoPlist.strings */; };
 		6BD4848918A7BDAA0066A7D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4848818A7BDAA0066A7D2 /* main.m */; };
 		6BD4848D18A7BDAA0066A7D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4848C18A7BDAA0066A7D2 /* AppDelegate.m */; };
-		6BD4849018A7BDAA0066A7D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BD4848E18A7BDAA0066A7D2 /* Main.storyboard */; };
-		6BD4849318A7BDAA0066A7D2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4849218A7BDAA0066A7D2 /* ViewController.m */; };
 		6BD4849518A7BDAA0066A7D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD4849418A7BDAA0066A7D2 /* Images.xcassets */; };
 		6BD4849C18A7BDAA0066A7D2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4849B18A7BDAA0066A7D2 /* XCTest.framework */; };
 		6BD4849D18A7BDAA0066A7D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4847C18A7BDAA0066A7D2 /* Foundation.framework */; };
 		6BD4849E18A7BDAA0066A7D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4848018A7BDAA0066A7D2 /* UIKit.framework */; };
 		6BD484A618A7BDAA0066A7D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BD484A418A7BDAA0066A7D2 /* InfoPlist.strings */; };
 		6BD484A818A7BDAA0066A7D2 /* ExampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484A718A7BDAA0066A7D2 /* ExampleProjectTests.m */; };
+		6BD484BB18A7BE8A0066A7D2 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484BA18A7BE8A0066A7D2 /* DemoViewController.m */; };
+		6BD484BF18A7BEAF0066A7D2 /* MXLMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */; };
+		6BD484C318A7BEE10066A7D2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484C218A7BEE10066A7D2 /* UIImage+ImageEffects.m */; };
+		6BD484C518A7C3250066A7D2 /* daft_punk@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6BD484C418A7C3250066A7D2 /* daft_punk@2x.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,15 +46,19 @@
 		6BD4848A18A7BDAA0066A7D2 /* ExampleProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExampleProject-Prefix.pch"; sourceTree = "<group>"; };
 		6BD4848B18A7BDAA0066A7D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6BD4848C18A7BDAA0066A7D2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6BD4848F18A7BDAA0066A7D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6BD4849118A7BDAA0066A7D2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6BD4849218A7BDAA0066A7D2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6BD4849418A7BDAA0066A7D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6BD4849A18A7BDAA0066A7D2 /* ExampleProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BD4849B18A7BDAA0066A7D2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6BD484A318A7BDAA0066A7D2 /* ExampleProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExampleProjectTests-Info.plist"; sourceTree = "<group>"; };
 		6BD484A518A7BDAA0066A7D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6BD484A718A7BDAA0066A7D2 /* ExampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleProjectTests.m; sourceTree = "<group>"; };
+		6BD484B918A7BE8A0066A7D2 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		6BD484BA18A7BE8A0066A7D2 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		6BD484BD18A7BEAF0066A7D2 /* MXLMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLMediaView.h; sourceTree = "<group>"; };
+		6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLMediaView.m; sourceTree = "<group>"; };
+		6BD484C118A7BEE10066A7D2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		6BD484C218A7BEE10066A7D2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		6BD484C418A7C3250066A7D2 /* daft_punk@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "daft_punk@2x.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +120,8 @@
 			children = (
 				6BD4848B18A7BDAA0066A7D2 /* AppDelegate.h */,
 				6BD4848C18A7BDAA0066A7D2 /* AppDelegate.m */,
-				6BD4848E18A7BDAA0066A7D2 /* Main.storyboard */,
-				6BD4849118A7BDAA0066A7D2 /* ViewController.h */,
-				6BD4849218A7BDAA0066A7D2 /* ViewController.m */,
+				6BD484B918A7BE8A0066A7D2 /* DemoViewController.h */,
+				6BD484BA18A7BE8A0066A7D2 /* DemoViewController.m */,
 				6BD4849418A7BDAA0066A7D2 /* Images.xcassets */,
 				6BD4848318A7BDAA0066A7D2 /* Supporting Files */,
 			);
@@ -126,6 +131,8 @@
 		6BD4848318A7BDAA0066A7D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6BD484C418A7C3250066A7D2 /* daft_punk@2x.jpg */,
+				6BD484BC18A7BEAF0066A7D2 /* MXLMediaView */,
 				6BD4848418A7BDAA0066A7D2 /* ExampleProject-Info.plist */,
 				6BD4848518A7BDAA0066A7D2 /* InfoPlist.strings */,
 				6BD4848818A7BDAA0066A7D2 /* main.m */,
@@ -150,6 +157,26 @@
 				6BD484A418A7BDAA0066A7D2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6BD484BC18A7BEAF0066A7D2 /* MXLMediaView */ = {
+			isa = PBXGroup;
+			children = (
+				6BD484C018A7BEE10066A7D2 /* UIImage+ImageEffects */,
+				6BD484BD18A7BEAF0066A7D2 /* MXLMediaView.h */,
+				6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */,
+			);
+			name = MXLMediaView;
+			path = ../../MXLMediaView;
+			sourceTree = "<group>";
+		};
+		6BD484C018A7BEE10066A7D2 /* UIImage+ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				6BD484C118A7BEE10066A7D2 /* UIImage+ImageEffects.h */,
+				6BD484C218A7BEE10066A7D2 /* UIImage+ImageEffects.m */,
+			);
+			path = "UIImage+ImageEffects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,9 +255,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BD484C518A7C3250066A7D2 /* daft_punk@2x.jpg in Resources */,
 				6BD4849518A7BDAA0066A7D2 /* Images.xcassets in Resources */,
 				6BD4848718A7BDAA0066A7D2 /* InfoPlist.strings in Resources */,
-				6BD4849018A7BDAA0066A7D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,9 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BD4849318A7BDAA0066A7D2 /* ViewController.m in Sources */,
 				6BD4848D18A7BDAA0066A7D2 /* AppDelegate.m in Sources */,
+				6BD484C318A7BEE10066A7D2 /* UIImage+ImageEffects.m in Sources */,
 				6BD4848918A7BDAA0066A7D2 /* main.m in Sources */,
+				6BD484BB18A7BE8A0066A7D2 /* DemoViewController.m in Sources */,
+				6BD484BF18A7BEAF0066A7D2 /* MXLMediaView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,14 +309,6 @@
 				6BD4848618A7BDAA0066A7D2 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6BD4848E18A7BDAA0066A7D2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6BD4848F18A7BDAA0066A7D2 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6BD484A418A7BDAA0066A7D2 /* InfoPlist.strings */ = {

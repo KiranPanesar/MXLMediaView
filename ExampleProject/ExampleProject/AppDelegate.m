@@ -8,11 +8,37 @@
 
 #import "AppDelegate.h"
 
+// View controllers
+#import "DemoViewController.h"
+
+@interface AppDelegate ()
+
+@property (strong, nonatomic, readwrite) DemoViewController *demoViewController;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    _demoViewController = [[DemoViewController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:_demoViewController];
+    
+    [[navController navigationBar] setBarTintColor:[UIColor colorWithRed:44.0f/255.0f
+                                                                   green:62.0f/255.0f
+                                                                    blue:80.0f/255.0f
+                                                                   alpha:1.0f]];
+    
+    [[navController navigationBar] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [_window setRootViewController:navController];
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 							
