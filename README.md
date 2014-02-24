@@ -22,8 +22,24 @@ And then:
 -(void)pushShowImageButton:(id)sender {
     MXLMediaView *mediaView = [[MXLMediaView alloc] init];
     
+    [mediaView setDelegate:self];
     [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"]
             inParentView:self.navigationController.view];
+}
+```
+
+Delegate methods:
+```objectivec
+-(void)mediaView:(MXLMediaView *)mediaView didReceiveLongPressGesture:(id)gesture {
+    NSLog(@"MXLMediaViewDelgate: Long pressed received");
+}
+
+-(void)mediaViewWillDismiss:(MXLMediaView *)mediaView {
+    NSLog(@"MXLMediaViewDelgate: Will dismiss");
+}
+
+-(void)mediaViewDidDismiss:(MXLMediaView *)mediaView {
+    NSLog(@"MXLMediaViewDelgate: Did dismiss");
 }
 ```
 
