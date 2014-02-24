@@ -31,6 +31,8 @@ Licence
 -------
 MIT. See LICENCE file for more info.
 
+If you do use this in your app, send me a [tweet](http://twitter.com/k_panesar)!
+
 Pitch
 -----
 How much do *you* think this advanced open source project is worth? Wait just one minute before you answer!
