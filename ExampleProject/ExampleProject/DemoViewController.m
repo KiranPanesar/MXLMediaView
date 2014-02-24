@@ -11,7 +11,7 @@
 // Views
 #import "MXLMediaView.h"
 
-@interface DemoViewController ()
+@interface DemoViewController () <MXLMediaViewDelegate>
 
 @property (strong, nonatomic, readwrite) UIButton *showImageButton;
 
@@ -27,6 +27,8 @@
     
     [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"]
             inParentView:self.navigationController.view];
+
+    [mediaView setDelegate:self];
 }
 
 -(void)setUpShowImageButton {
@@ -37,6 +39,27 @@
     [_showImageButton addTarget:self action:@selector(pushShowImageButton:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:_showImageButton];
+}
+
+#pragma mark MXLMediaViewDelegate Methods
+
+-(void)mediaView:(MXLMediaView *)mediaView didReceiveLongPressGesture:(id)gesture {
+    NSLog(@"MXLMediaViewDelgate: Long pressed received");
+    
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share Photo"
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"Dismiss"
+                                                    destructiveButtonTitle:nil
+                                                         otherButtonTitles:@"Twitter", @"Facebook", @"Instagram", nil];
+    [shareActionSheet showInView:self.view];
+}
+
+-(void)mediaViewWillDismiss:(MXLMediaView *)mediaView {
+    NSLog(@"MXLMediaViewDelgate: Will dismiss");
+}
+
+-(void)mediaViewDidDismiss:(MXLMediaView *)mediaView {
+    NSLog(@"MXLMediaViewDelgate: Did dismiss");
 }
 
 -(id)init {

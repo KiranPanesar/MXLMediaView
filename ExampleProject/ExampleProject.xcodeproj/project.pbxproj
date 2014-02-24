@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B5E94B818BBC62F00576655 /* MXLMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E94B718BBC62F00576655 /* MXLMediaView.m */; };
 		6BD4847D18A7BDAA0066A7D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4847C18A7BDAA0066A7D2 /* Foundation.framework */; };
 		6BD4847F18A7BDAA0066A7D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4847E18A7BDAA0066A7D2 /* CoreGraphics.framework */; };
 		6BD4848118A7BDAA0066A7D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD4848018A7BDAA0066A7D2 /* UIKit.framework */; };
@@ -20,7 +21,6 @@
 		6BD484A618A7BDAA0066A7D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BD484A418A7BDAA0066A7D2 /* InfoPlist.strings */; };
 		6BD484A818A7BDAA0066A7D2 /* ExampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484A718A7BDAA0066A7D2 /* ExampleProjectTests.m */; };
 		6BD484BB18A7BE8A0066A7D2 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484BA18A7BE8A0066A7D2 /* DemoViewController.m */; };
-		6BD484BF18A7BEAF0066A7D2 /* MXLMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */; };
 		6BD484C318A7BEE10066A7D2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD484C218A7BEE10066A7D2 /* UIImage+ImageEffects.m */; };
 		6BD484C518A7C3250066A7D2 /* daft_punk@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6BD484C418A7C3250066A7D2 /* daft_punk@2x.jpg */; };
 /* End PBXBuildFile section */
@@ -36,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B5E94B618BBC62F00576655 /* MXLMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLMediaView.h; sourceTree = "<group>"; };
+		6B5E94B718BBC62F00576655 /* MXLMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLMediaView.m; sourceTree = "<group>"; };
 		6BD4847918A7BDAA0066A7D2 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BD4847C18A7BDAA0066A7D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6BD4847E18A7BDAA0066A7D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -54,8 +56,6 @@
 		6BD484A718A7BDAA0066A7D2 /* ExampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleProjectTests.m; sourceTree = "<group>"; };
 		6BD484B918A7BE8A0066A7D2 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		6BD484BA18A7BE8A0066A7D2 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
-		6BD484BD18A7BEAF0066A7D2 /* MXLMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLMediaView.h; sourceTree = "<group>"; };
-		6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLMediaView.m; sourceTree = "<group>"; };
 		6BD484C118A7BEE10066A7D2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		6BD484C218A7BEE10066A7D2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		6BD484C418A7C3250066A7D2 /* daft_punk@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "daft_punk@2x.jpg"; sourceTree = "<group>"; };
@@ -162,9 +162,9 @@
 		6BD484BC18A7BEAF0066A7D2 /* MXLMediaView */ = {
 			isa = PBXGroup;
 			children = (
+				6B5E94B618BBC62F00576655 /* MXLMediaView.h */,
+				6B5E94B718BBC62F00576655 /* MXLMediaView.m */,
 				6BD484C018A7BEE10066A7D2 /* UIImage+ImageEffects */,
-				6BD484BD18A7BEAF0066A7D2 /* MXLMediaView.h */,
-				6BD484BE18A7BEAF0066A7D2 /* MXLMediaView.m */,
 			);
 			name = MXLMediaView;
 			path = ../../MXLMediaView;
@@ -277,10 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BD4848D18A7BDAA0066A7D2 /* AppDelegate.m in Sources */,
+				6B5E94B818BBC62F00576655 /* MXLMediaView.m in Sources */,
 				6BD484C318A7BEE10066A7D2 /* UIImage+ImageEffects.m in Sources */,
 				6BD4848918A7BDAA0066A7D2 /* main.m in Sources */,
 				6BD484BB18A7BE8A0066A7D2 /* DemoViewController.m in Sources */,
-				6BD484BF18A7BEAF0066A7D2 /* MXLMediaView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

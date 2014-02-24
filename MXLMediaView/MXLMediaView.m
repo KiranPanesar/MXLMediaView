@@ -12,11 +12,20 @@
 
 @interface MXLMediaView ()
 
-@property (strong, nonatomic, readwrite) UIImageView *backgroundImageView;
-@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
+// Background image view (used for blurring the background)
+@property (strong, nonatomic, readwrite) UIImageView       *backgroundImageView;
+
+// UIKit Dynamics manager
+@property (strong, nonatomic, readwrite) UIDynamicAnimator *dynamicAnimator;
+
+// Gesture recognizers
+@property (strong, nonatomic, readwrite) UITapGestureRecognizer       *tapGestureRecognizer;
+@property (strong, nonatomic, readwrite) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 -(void)showMediaImageView;
 -(void)dismiss:(id)sender;
+
+-(void)pushLongPress:(id)sender;
 
 @end
 
@@ -36,7 +45,7 @@
     // Store the parent view and image
     _parentView = parentView;
     _mediaImage = image;
-
+    
     // Set up self
     [self setFrame:CGRectMake(0.0f, 0.0f, parentView.frame.size.width, parentView.frame.size.height)];
     [self setUserInteractionEnabled:YES];
@@ -77,8 +86,17 @@
             [_backgroundImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         } completion:^(BOOL finished) {
+            
             // Once done, add a tap gesture to dismiss self
-            [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)]];
+            // We use a short delay so that the user can't dismiss the view while the media image is dropping down
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                // Set up and add gesture recognizers
+                _tapGestureRecognizer       = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+                _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pushLongPress:)];
+                
+                [self addGestureRecognizer:_tapGestureRecognizer];
+                [self addGestureRecognizer:_longPressGestureRecognizer];
+            });
         }];
     }];
  }
@@ -122,6 +140,15 @@
 
 // Method to dismiss self
 -(void)dismiss:(id)sender {
+    // Remove gesture recognizers, prevents users from 'double exiting' by tapping twice
+    [self removeGestureRecognizer:_tapGestureRecognizer];
+    [self removeGestureRecognizer:_longPressGestureRecognizer];
+    
+    // Trigger mediaViewWillDismiss: delegate method
+    if ([_delegate respondsToSelector:@selector(mediaViewWillDismiss:)]) {
+        [_delegate mediaViewWillDismiss:self];
+    }
+    
     // Dismiss actual image provided
     [self hideMediaImageView];
     
@@ -145,9 +172,23 @@
         [UIView animateWithDuration:0.2 animations:^{
             [_backgroundImageView setAlpha:0.0f];
         } completion:^(BOOL finished) {
+            
+            // Trigger delegate method
+            if ([_delegate respondsToSelector:@selector(mediaViewDidDismiss:)]) {
+                [_delegate mediaViewDidDismiss:self];
+            }
+            
             [self removeFromSuperview];
         }];
     }];
+}
+
+-(void)pushLongPress:(id)sender {
+    if ([sender state] == UIGestureRecognizerStateBegan) {
+        if ([_delegate respondsToSelector:@selector(mediaView:didReceiveLongPressGesture:)]) {
+            [_delegate mediaView:self didReceiveLongPressGesture:sender];
+        }
+    }
 }
 
 
