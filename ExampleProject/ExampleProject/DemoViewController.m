@@ -24,7 +24,8 @@
 
 -(void)pushShowImageButton:(id)sender {
     MXLMediaView *mediaView = [[MXLMediaView alloc] init];
-    
+    [mediaView setDelegate:self];
+
     [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"] inParentView:self.navigationController.view completion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *introAlertView = [[UIAlertView alloc] initWithTitle:@"Quick Tips"
@@ -35,8 +36,6 @@
             [introAlertView show];
         });
     }];
-
-    [mediaView setDelegate:self];
 }
 
 -(void)setUpShowImageButton {
