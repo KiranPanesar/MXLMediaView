@@ -21,10 +21,11 @@ And then:
 ```objectivec
 -(void)pushShowImageButton:(id)sender {
     MXLMediaView *mediaView = [[MXLMediaView alloc] init];
-    
     [mediaView setDelegate:self];
-    [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"]
-            inParentView:self.navigationController.view];
+
+    [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"] inParentView:self.view completion:^{
+      NSLog(@"Done showing MXLMediaView")
+    }];
 }
 ```
 
