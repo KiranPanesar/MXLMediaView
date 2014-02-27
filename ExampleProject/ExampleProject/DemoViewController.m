@@ -25,8 +25,16 @@
 -(void)pushShowImageButton:(id)sender {
     MXLMediaView *mediaView = [[MXLMediaView alloc] init];
     
-    [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"]
-            inParentView:self.navigationController.view];
+    [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"] inParentView:self.navigationController.view completion:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *introAlertView = [[UIAlertView alloc] initWithTitle:@"Quick Tips"
+                                                                     message:@"Tap on the image to dismiss it, hold down to show options."
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"Dismiss"
+                                                           otherButtonTitles:nil, nil];
+            [introAlertView show];
+        });
+    }];
 
     [mediaView setDelegate:self];
 }

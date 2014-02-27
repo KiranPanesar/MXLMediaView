@@ -27,7 +27,8 @@
 @property (strong, nonatomic) UIImage *mediaImage;
 
 @property (strong, nonatomic) id<MXLMediaViewDelegate> delegate;
+@property (strong, nonatomic, readonly) void(^completionBlock)();
 
--(void)showImage:(UIImage *)image inParentView:(UIView *)parentView;
+-(void)showImage:(UIImage *)image inParentView:(UIView *)parentView completion:(void(^)(void))completion;
 
 @end

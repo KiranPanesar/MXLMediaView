@@ -10,7 +10,9 @@
 // Categories
 #import "UIImage+ImageEffects.h"
 
-@interface MXLMediaView ()
+#define IS_DEVICE_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+@interface MXLMediaView () <UIDynamicAnimatorDelegate>
 
 // Background image view (used for blurring the background)
 @property (strong, nonatomic, readwrite) UIImageView       *backgroundImageView;
@@ -41,7 +43,10 @@
 }
 
 // Main method to show the media view
--(void)showImage:(UIImage *)image inParentView:(UIView *)parentView {
+-(void)showImage:(UIImage *)image inParentView:(UIView *)parentView completion:(void(^)(void))completion {
+    // Set up the completion block
+    _completionBlock = completion;
+    
     // Store the parent view and image
     _parentView = parentView;
     _mediaImage = image;
@@ -76,7 +81,6 @@
             }
         }
         
-        
         // Animate the scaling of the background image
         // Giving the illusion that the background view is shrinking a bit
         [UIView animateWithDuration:0.2 animations:^{
@@ -85,18 +89,6 @@
             [_backgroundImageView setTransform:CGAffineTransformScale(transform, 0.9, 0.9)];
             [_backgroundImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        } completion:^(BOOL finished) {
-            
-            // Once done, add a tap gesture to dismiss self
-            // We use a short delay so that the user can't dismiss the view while the media image is dropping down
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                // Set up and add gesture recognizers
-                _tapGestureRecognizer       = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
-                _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pushLongPress:)];
-                
-                [self addGestureRecognizer:_tapGestureRecognizer];
-                [self addGestureRecognizer:_longPressGestureRecognizer];
-            });
         }];
     }];
  }
@@ -112,7 +104,8 @@
     
     // Set up UIKit Dynamic animator instance
     _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
-
+    [_dynamicAnimator setDelegate:self];
+    
     // Create collision point at the bottom boundary of self
     UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[_mediaImageView]];
     [collisionBehaviour addBoundaryWithIdentifier:@"barrier"
@@ -121,7 +114,7 @@
     
     // Add gravity effect with 2.5 vertical velocity
     UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[_mediaImageView]];
-    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, 2.5f)];
+    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, (IS_DEVICE_IPAD ? 9.0f : 2.5f))];
     
     // Add the collision and gravity behaviours to the main animator
     [_dynamicAnimator addBehavior:collisionBehaviour];
@@ -191,7 +184,6 @@
     }
 }
 
-
 #pragma mark Blur methods
 
 -(UIImage *)blurredImageFromView:(UIView *)backgroundView {
@@ -216,6 +208,21 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+-(void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {
+    // Set up and add gesture recognizers
+    // We set this in the UIDynamicAnimator completion delegete so the
+    // user can't dismiss the view while the media image is dropping down
+    _tapGestureRecognizer       = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+    _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pushLongPress:)];
+    
+    [self addGestureRecognizer:_tapGestureRecognizer];
+    [self addGestureRecognizer:_longPressGestureRecognizer];
+    
+    if (_completionBlock) {
+        _completionBlock();
+    }
 }
 
 @end
