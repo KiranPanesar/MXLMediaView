@@ -24,7 +24,7 @@ And then:
     [mediaView setDelegate:self];
 
     [mediaView showImage:[UIImage imageNamed:@"daft_punk@2x.jpg"] inParentView:self.view completion:^{
-      NSLog(@"Done showing MXLMediaView")
+      NSLog(@"Done showing MXLMediaView");
     }];
 }
 ```
