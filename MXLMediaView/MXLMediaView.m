@@ -177,7 +177,7 @@
 }
 
 -(void)pushLongPress:(id)sender {
-    if ([sender state] == UIGestureRecognizerStateBegan) {
+    if ([(UIGestureRecognizer *)sender state] == UIGestureRecognizerStateBegan) {
         if ([_delegate respondsToSelector:@selector(mediaView:didReceiveLongPressGesture:)]) {
             [_delegate mediaView:self didReceiveLongPressGesture:sender];
         }
