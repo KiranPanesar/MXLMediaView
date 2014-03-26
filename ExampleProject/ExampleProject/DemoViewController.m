@@ -57,7 +57,7 @@
 -(void)setUpShowImageButton {
     _showImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_showImageButton setFrame:CGRectMake(0.0f, 0.0f, 200.0f, 60.0f)];
-    [_showImageButton setCenter:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f)];
+    [_showImageButton setCenter:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f - 40.0f)];
     [_showImageButton setTitle:@"Show Image" forState:UIControlStateNormal];
     [_showImageButton addTarget:self action:@selector(pushShowImageButton:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -67,7 +67,7 @@
 -(void)setUpShowVideoButton {
     _showVideoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_showVideoButton setFrame:CGRectMake(0.0f, 0.0f, 200.0f, 60.0f)];
-    [_showVideoButton setCenter:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f + 80.0f)];
+    [_showVideoButton setCenter:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f + 40.0f)];
     [_showVideoButton setTitle:@"Show Video" forState:UIControlStateNormal];
     [_showVideoButton addTarget:self action:@selector(pushShowVideoButton:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -79,7 +79,7 @@
 -(void)mediaView:(MXLMediaView *)mediaView didReceiveLongPressGesture:(id)gesture {
     NSLog(@"MXLMediaViewDelgate: Long pressed received");
     
-    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share Photo"
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:([mediaView mediaType] == MXLMediaViewTypeImage ? @"Share Photo" : @"Share Video")
                                                                   delegate:nil
                                                          cancelButtonTitle:@"Dismiss"
                                                     destructiveButtonTitle:nil
