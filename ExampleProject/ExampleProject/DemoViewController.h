@@ -11,5 +11,6 @@
 @interface DemoViewController : UIViewController
 
 @property (strong, nonatomic, readonly) UIButton *showImageButton;
+@property (strong, nonatomic, readonly) UIButton *showVideoButton;
 
 @end

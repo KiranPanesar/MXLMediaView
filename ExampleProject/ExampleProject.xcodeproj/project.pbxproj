@@ -38,6 +38,7 @@
 /* Begin PBXFileReference section */
 		6B5E94B618BBC62F00576655 /* MXLMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLMediaView.h; sourceTree = "<group>"; };
 		6B5E94B718BBC62F00576655 /* MXLMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLMediaView.m; sourceTree = "<group>"; };
+		6BB6372818E303CB001BD893 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		6BD4847918A7BDAA0066A7D2 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BD4847C18A7BDAA0066A7D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6BD4847E18A7BDAA0066A7D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,6 +108,7 @@
 		6BD4847B18A7BDAA0066A7D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BB6372818E303CB001BD893 /* MediaPlayer.framework */,
 				6BD4847C18A7BDAA0066A7D2 /* Foundation.framework */,
 				6BD4847E18A7BDAA0066A7D2 /* CoreGraphics.framework */,
 				6BD4848018A7BDAA0066A7D2 /* UIKit.framework */,

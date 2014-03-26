@@ -14,9 +14,13 @@
 @interface DemoViewController () <MXLMediaViewDelegate>
 
 @property (strong, nonatomic, readwrite) UIButton *showImageButton;
+@property (strong, nonatomic, readwrite) UIButton *showVideoButton;
 
 -(void)setUpShowImageButton;
+-(void)setUpShowVideoButton;
+
 -(void)pushShowImageButton:(id)sender;
+-(void)pushShowVideoButton:(id)sender;
 
 @end
 
@@ -38,6 +42,14 @@
     }];
 }
 
+-(void)pushShowVideoButton:(id)sender {
+    MXLMediaView *mediaView = [[MXLMediaView alloc] init];
+    
+    [mediaView showVideoWithURL:[NSURL URLWithString:@"http://mobilexlabs.com/vid/main2.mp4"] inParentView:self.navigationController.view completion:^{
+        NSLog(@"Complete");
+    }];
+}
+
 -(void)setUpShowImageButton {
     _showImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_showImageButton setFrame:CGRectMake(0.0f, 0.0f, 200.0f, 60.0f)];
@@ -46,6 +58,16 @@
     [_showImageButton addTarget:self action:@selector(pushShowImageButton:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:_showImageButton];
+}
+
+-(void)setUpShowVideoButton {
+    _showVideoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_showVideoButton setFrame:CGRectMake(0.0f, 0.0f, 200.0f, 60.0f)];
+    [_showVideoButton setCenter:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f + 80.0f)];
+    [_showVideoButton setTitle:@"Show Video" forState:UIControlStateNormal];
+    [_showVideoButton addTarget:self action:@selector(pushShowVideoButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_showVideoButton];
 }
 
 #pragma mark MXLMediaViewDelegate Methods
@@ -95,6 +117,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     [self setUpShowImageButton];
+    [self setUpShowVideoButton];
 }
 
 - (void)didReceiveMemoryWarning
