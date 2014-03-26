@@ -27,8 +27,13 @@
 @property (strong, nonatomic, readwrite) UITapGestureRecognizer       *tapGestureRecognizer;
 @property (strong, nonatomic, readwrite) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
+@property (assign, nonatomic, readwrite) MXLMediaViewType mediaType;
+
+-(void)dropDownView:(UIView *)view withGravityVelocity:(float)velocity;
+
 -(void)showMediaImageView;
 -(void)showMoviePlayerView;
+
 -(void)dismiss:(id)sender;
 
 -(void)pushLongPress:(id)sender;
@@ -46,71 +51,30 @@
     return self;
 }
 
-// Main method to show the media view
-
+// Method to show an image
 -(void)showImage:(UIImage *)image inParentView:(UIView *)parentView completion:(void(^)(void))completion {
-    // Set up the completion block
-    _completionBlock = completion;
-    
-    // Store the parent view and image
-    _parentView = parentView;
-    _mediaImage = image;
-    
-    // Set up self
-    [self setFrame:CGRectMake(0.0f, 0.0f, parentView.frame.size.width, parentView.frame.size.height)];
-    [self setUserInteractionEnabled:YES];
-    
-    // Set up background imageview
-    // This is used to replace the parentView in the backgroud, allowing us to efficiently blur
-    _backgroundImageView = [[UIImageView alloc] initWithFrame:parentView.frame];
-    [_backgroundImageView setImage:[self blurredImageFromView:parentView]]; // Blur
-    [_backgroundImageView setAlpha:0.0f];                                   // Make invisible
-    
-    [self addSubview:_backgroundImageView];
-    
-    // Add self to view stack
-    [parentView addSubview:self];
-    
-    // Start showing the actualy image file provided
-    [self showMediaImageView];
-
-    // Animate the background image view opacity
-    // This gives the illusion that the background is being blurred
-    [UIView animateWithDuration:0.2 animations:^{
-        [_backgroundImageView setAlpha:1.0f];
-    } completion:^(BOOL finished) {
-        
-        // Once that's complete, hide all the parent view's subviews, except for self
-        for (UIView *v in parentView.subviews) {
-            if (v != self) {
-                [v setHidden:YES];
-            }
-        }
-        
-        // Animate the scaling of the background image
-        // Giving the illusion that the background view is shrinking a bit
-        [UIView animateWithDuration:0.2 animations:^{
-            // CATransform stuff
-            CGAffineTransform transform = _backgroundImageView.transform;
-            [_backgroundImageView setTransform:CGAffineTransformScale(transform, 0.9, 0.9)];
-            [_backgroundImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        }];
-    }];
+    _mediaType = MXLMediaViewTypeImage;
+    [self showMediaFile:image ofType:_mediaType inParentView:parentView completion:completion];
 }
 
+// Method to show a video
 -(void)showVideoWithURL:(NSURL *)videoURL inParentView:(UIView *)parentView completion:(void(^)(void))completion {
+    _mediaType = MXLMediaViewTypeVideo;
+    [self showMediaFile:videoURL ofType:_mediaType inParentView:parentView completion:completion];
+}
+
+// Main method to show a media file
+-(void)showMediaFile:(id)mediaFile ofType:(MXLMediaViewType)mediaType inParentView:(UIView *)parentView completion:(void(^)(void))completion {
     // Set up the completion block
     _completionBlock = completion;
     
     // Store the parent view and video URL
     _parentView = parentView;
-    _videoURL   = videoURL;
     
     // Set up self
     [self setFrame:CGRectMake(0.0f, 0.0f, parentView.frame.size.width, parentView.frame.size.height)];
     [self setUserInteractionEnabled:YES];
-
+    
     // Set up background imageview
     // This is used to replace the parentView in the backgroud, allowing us to efficiently blur
     _backgroundImageView = [[UIImageView alloc] initWithFrame:parentView.frame];
@@ -118,13 +82,19 @@
     [_backgroundImageView setAlpha:0.0f];                                   // Make invisible
     
     [self addSubview:_backgroundImageView];
-
+    
     // Add self to view stack
     [parentView addSubview:self];
     
-    // Start showing the movie player view
-    [self showMoviePlayerView];
-
+    // Check the file type, show the appropriate view
+    if (mediaType == MXLMediaViewTypeImage) {
+        _mediaImage = (UIImage *)mediaFile;
+        [self showMediaImageView];
+    } else if (mediaType == MXLMediaViewTypeVideo) {
+        _videoURL   = (NSURL *)mediaFile;
+        [self showMoviePlayerView];
+    }
+    
     // Animate the background image view opacity
     // This gives the illusion that the background is being blurred
     [UIView animateWithDuration:0.2 animations:^{
@@ -159,23 +129,7 @@
     
     [self addSubview:_mediaImageView]; // Add to view stack
     
-    // Set up UIKit Dynamic animator instance
-    _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
-    [_dynamicAnimator setDelegate:self];
-    
-    // Create collision point at the bottom boundary of self
-    UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[_mediaImageView]];
-    [collisionBehaviour addBoundaryWithIdentifier:@"barrier"
-                                fromPoint:CGPointMake(0.0f, self.frame.size.height)
-                                  toPoint:CGPointMake(self.frame.size.width, self.frame.size.height)];
-    
-    // Add gravity effect with 2.5 vertical velocity
-    UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[_mediaImageView]];
-    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, (IS_DEVICE_IPAD ? 9.0f : 2.5f))];
-    
-    // Add the collision and gravity behaviours to the main animator
-    [_dynamicAnimator addBehavior:collisionBehaviour];
-    [_dynamicAnimator addBehavior:gravityBehaviour];
+    [self dropDownView:_mediaImageView withGravityVelocity:(IS_DEVICE_IPAD ? 9.0f : 2.5f)];
 }
 
 -(void)showMoviePlayerView {
@@ -185,32 +139,49 @@
     
     [self addSubview:_mediaPlayerController.view];
     
+    [self dropDownView:_mediaPlayerController.view withGravityVelocity:(IS_DEVICE_IPAD ? 10.0f : 3.5f)];
+}
+
+-(void)dropDownView:(UIView *)view withGravityVelocity:(float)velocity {
     // Set up UIKit Dynamic animator instance
     _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
     [_dynamicAnimator setDelegate:self];
     
     // Create collision point at the bottom boundary of self
-    UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[_mediaPlayerController.view]];
+    UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[view]];
     [collisionBehaviour addBoundaryWithIdentifier:@"barrier"
-                                        fromPoint:CGPointMake(0.0f, (self.frame.size.height / 2.0f) + 90.0f)
-                                          toPoint:CGPointMake(self.frame.size.width, (self.frame.size.height / 2.0f) + 90.0f)];
+                                        fromPoint:CGPointMake(0.0f, (self.frame.size.height + view.frame.size.height)/2.0f)
+                                          toPoint:CGPointMake(self.frame.size.width, (self.frame.size.height + view.frame.size.height)/2.0f)];
     
     // Add gravity effect with 2.5 vertical velocity
-    UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[_mediaPlayerController.view]];
-    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, (IS_DEVICE_IPAD ? 9.0f : 2.5f))];
+    UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[view]];
+    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, velocity)];
     
     // Add the collision and gravity behaviours to the main animator
     [_dynamicAnimator addBehavior:collisionBehaviour];
     [_dynamicAnimator addBehavior:gravityBehaviour];
 }
 
-// Used to dismiss the actual image provided
--(void)hideMediaImageView {
+// Used to hide the image/video being displayed
+-(void)hideMediaView {
+
+    // Pause the video, this keeps the thumbnail visible while the view is dismissing.
+    // if you call -stop on the player, the background of the player cuts to black. Not very smooth.
+    [_mediaPlayerController pause];
+    
     // Animation to shrink it to nothing
     [UIView animateWithDuration:0.2 animations:^{
-        CGAffineTransform transform = _mediaImageView.transform;
-        [_mediaImageView setTransform:CGAffineTransformScale(transform, 0, 0)];
+        CGAffineTransform imageViewTransform = _mediaImageView.transform;
+        [_mediaImageView setTransform:CGAffineTransformScale(imageViewTransform, 0, 0)];
         [_mediaImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
+        
+        CGAffineTransform movieViewTransform = _mediaPlayerController.view.transform;
+        [_mediaPlayerController.view setTransform:CGAffineTransformScale(movieViewTransform, 0, 0)];
+        [_mediaPlayerController.view setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
+    } completion:^(BOOL finished) {
+        [_mediaPlayerController stop]; // Now it's hidden, stop playback completely
+        [_mediaPlayerController.view removeFromSuperview];
+        [_mediaImageView removeFromSuperview];
     }];
 }
 
@@ -225,8 +196,8 @@
         [_delegate mediaViewWillDismiss:self];
     }
     
-    // Dismiss actual image provided
-    [self hideMediaImageView];
+    // Dismiss the image/video being displayed
+    [self hideMediaView];
     
     // Scale background back to fullscreen
     [UIView animateWithDuration:0.2 animations:^{

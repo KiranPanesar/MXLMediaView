@@ -10,6 +10,12 @@
 @class MXLMediaView;
 @class MPMoviePlayerController;
 
+// Create NSENUM to store possible media types
+typedef NS_ENUM(NSInteger, MXLMediaViewType) {
+    MXLMediaViewTypeImage,
+    MXLMediaViewTypeVideo
+};
+
 @protocol MXLMediaViewDelegate <NSObject>
 
 @optional
@@ -28,6 +34,8 @@
 @property (strong, nonatomic) UIView  *parentView;
 @property (strong, nonatomic) UIImage *mediaImage;
 @property (strong, nonatomic) NSURL   *videoURL;
+
+@property (assign, nonatomic, readonly) MXLMediaViewType mediaType;
 
 @property (strong, nonatomic) id<MXLMediaViewDelegate> delegate;
 @property (strong, nonatomic, readonly) void(^completionBlock)();
