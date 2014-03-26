@@ -11,7 +11,7 @@ MXLMediaView uses UIKit Dynamics for the gravity effect so is only compatible wi
 
 Usage
 -----
-The only externa dependency is on Apple' [UIImage+ImageEffects](https://developer.apple.com/downloads/download.action?path=wwdc_2013/wwdc_2013_sample_code/ios_uiimageeffects.zip), which is included in this repo.
+The only externa dependency is on Apple's [UIImage+ImageEffects](https://developer.apple.com/downloads/download.action?path=wwdc_2013/wwdc_2013_sample_code/ios_uiimageeffects.zip), which is included in this repo.
 
 The process of showing an image in your app is dead simple. First import the class:
 ```objectivec
@@ -56,6 +56,14 @@ Delegate methods:
 -(void)mediaViewDidDismiss:(MXLMediaView *)mediaView {
     NSLog(@"MXLMediaViewDelgate: Did dismiss");
 }
+```
+
+
+Installation
+-----
+MXLMediaView is now installable via Cocoapods!
+```
+pod 'MXLMediaView', '~> 1.1'
 ```
 
 Licence
