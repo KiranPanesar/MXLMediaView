@@ -7,6 +7,9 @@
 
 #import "MXLMediaView.h"
 
+// Frameworks
+@import MediaPlayer;
+
 // Categories
 #import "UIImage+ImageEffects.h"
 
@@ -25,6 +28,7 @@
 @property (strong, nonatomic, readwrite) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 -(void)showMediaImageView;
+-(void)showMoviePlayerView;
 -(void)dismiss:(id)sender;
 
 -(void)pushLongPress:(id)sender;
@@ -43,6 +47,7 @@
 }
 
 // Main method to show the media view
+
 -(void)showImage:(UIImage *)image inParentView:(UIView *)parentView completion:(void(^)(void))completion {
     // Set up the completion block
     _completionBlock = completion;
@@ -60,6 +65,7 @@
     _backgroundImageView = [[UIImageView alloc] initWithFrame:parentView.frame];
     [_backgroundImageView setImage:[self blurredImageFromView:parentView]]; // Blur
     [_backgroundImageView setAlpha:0.0f];                                   // Make invisible
+    
     [self addSubview:_backgroundImageView];
     
     // Add self to view stack
@@ -91,7 +97,58 @@
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
     }];
- }
+}
+
+-(void)showVideoWithURL:(NSURL *)videoURL inParentView:(UIView *)parentView completion:(void(^)(void))completion {
+    // Set up the completion block
+    _completionBlock = completion;
+    
+    // Store the parent view and video URL
+    _parentView = parentView;
+    _videoURL   = videoURL;
+    
+    // Set up self
+    [self setFrame:CGRectMake(0.0f, 0.0f, parentView.frame.size.width, parentView.frame.size.height)];
+    [self setUserInteractionEnabled:YES];
+
+    // Set up background imageview
+    // This is used to replace the parentView in the backgroud, allowing us to efficiently blur
+    _backgroundImageView = [[UIImageView alloc] initWithFrame:parentView.frame];
+    [_backgroundImageView setImage:[self blurredImageFromView:parentView]]; // Blur
+    [_backgroundImageView setAlpha:0.0f];                                   // Make invisible
+    
+    [self addSubview:_backgroundImageView];
+
+    // Add self to view stack
+    [parentView addSubview:self];
+    
+    // Start showing the movie player view
+    [self showMoviePlayerView];
+
+    // Animate the background image view opacity
+    // This gives the illusion that the background is being blurred
+    [UIView animateWithDuration:0.2 animations:^{
+        [_backgroundImageView setAlpha:1.0f];
+    } completion:^(BOOL finished) {
+        
+        // Once that's complete, hide all the parent view's subviews, except for self
+        for (UIView *v in parentView.subviews) {
+            if (v != self) {
+                [v setHidden:YES];
+            }
+        }
+        
+        // Animate the scaling of the background image
+        // Giving the illusion that the background view is shrinking a bit
+        [UIView animateWithDuration:0.2 animations:^{
+            // CATransform stuff
+            CGAffineTransform transform = _backgroundImageView.transform;
+            [_backgroundImageView setTransform:CGAffineTransformScale(transform, 0.9, 0.9)];
+            [_backgroundImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        }];
+    }];
+}
 
 // Method to show the actual image provided
 -(void)showMediaImageView {
@@ -114,6 +171,32 @@
     
     // Add gravity effect with 2.5 vertical velocity
     UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[_mediaImageView]];
+    [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, (IS_DEVICE_IPAD ? 9.0f : 2.5f))];
+    
+    // Add the collision and gravity behaviours to the main animator
+    [_dynamicAnimator addBehavior:collisionBehaviour];
+    [_dynamicAnimator addBehavior:gravityBehaviour];
+}
+
+-(void)showMoviePlayerView {
+    _mediaPlayerController = [[MPMoviePlayerController alloc] initWithContentURL:_videoURL];
+    [_mediaPlayerController.view setFrame:CGRectMake(0.0f, -180.0f, self.frame.size.width, 180.0f)];
+    [_mediaPlayerController.view setContentMode:UIViewContentModeScaleAspectFit];
+    
+    [self addSubview:_mediaPlayerController.view];
+    
+    // Set up UIKit Dynamic animator instance
+    _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+    [_dynamicAnimator setDelegate:self];
+    
+    // Create collision point at the bottom boundary of self
+    UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[_mediaPlayerController.view]];
+    [collisionBehaviour addBoundaryWithIdentifier:@"barrier"
+                                        fromPoint:CGPointMake(0.0f, (self.frame.size.height / 2.0f) + 90.0f)
+                                          toPoint:CGPointMake(self.frame.size.width, (self.frame.size.height / 2.0f) + 90.0f)];
+    
+    // Add gravity effect with 2.5 vertical velocity
+    UIGravityBehavior *gravityBehaviour   = [[UIGravityBehavior alloc] initWithItems:@[_mediaPlayerController.view]];
     [gravityBehaviour setGravityDirection:CGVectorMake(0.0f, (IS_DEVICE_IPAD ? 9.0f : 2.5f))];
     
     // Add the collision and gravity behaviours to the main animator
@@ -216,6 +299,9 @@
     // user can't dismiss the view while the media image is dropping down
     _tapGestureRecognizer       = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
     _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pushLongPress:)];
+    
+    [_mediaPlayerController prepareToPlay];
+    [_mediaPlayerController play];
     
     [self addGestureRecognizer:_tapGestureRecognizer];
     [self addGestureRecognizer:_longPressGestureRecognizer];

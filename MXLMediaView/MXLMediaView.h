@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 @class MXLMediaView;
+@class MPMoviePlayerController;
 
 @protocol MXLMediaViewDelegate <NSObject>
 
@@ -20,15 +21,20 @@
 
 @interface MXLMediaView : UIView
 
-@property (strong, nonatomic, readonly) UIImageView *mediaImageView;      // Used to show acutal image
-@property (strong, nonatomic, readonly) UIImageView *backgroundImageView; // Used to capture background image & blur
+@property (strong, nonatomic, readonly) UIImageView             *mediaImageView;        // Used to show image to be displayed
+@property (strong, nonatomic, readonly) MPMoviePlayerController *mediaPlayerController; // Used to show the video to be plaeyd
+@property (strong, nonatomic, readonly) UIImageView             *backgroundImageView;   // Used to capture background image & blur
 
 @property (strong, nonatomic) UIView  *parentView;
 @property (strong, nonatomic) UIImage *mediaImage;
+@property (strong, nonatomic) NSURL   *videoURL;
 
 @property (strong, nonatomic) id<MXLMediaViewDelegate> delegate;
 @property (strong, nonatomic, readonly) void(^completionBlock)();
 
+// Methods used to show media
+
 -(void)showImage:(UIImage *)image inParentView:(UIView *)parentView completion:(void(^)(void))completion;
+-(void)showVideoWithURL:(NSURL *)videoURL inParentView:(UIView *)parentView completion:(void(^)(void))completion;
 
 @end
