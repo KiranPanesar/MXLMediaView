@@ -44,6 +44,7 @@
 
 -(void)pushShowVideoButton:(id)sender {
     MXLMediaView *mediaView = [[MXLMediaView alloc] init];
+    [mediaView setDelegate:self];
     
     // The best video on the Internet.
     NSURL *videoURL = [NSURL URLWithString:@"http://r6---sn-x0gvoxu-5hne.googlevideo.com/videoplayback?id=4c15efdfb3c57004&fexp=900064%2C901454%2C937417%2C913434%2C936910%2C936913%2C934022&mt=1395839560&ms=au&source=youtube&expire=1395863141&mv=m&upn=VFx9KbsZhhA&ipbits=0&pcm2fr=yes&itag=18&ip=212.64.66.4&key=yt5&ratebypass=yes&sver=3&gcr=nl&sparams=gcr%2Cid%2Cip%2Cipbits%2Citag%2Cpcm2fr%2Cratebypass%2Csource%2Cupn%2Cexpire&signature=BBDB6B6D88F8E0C440CF9CA283CEA9D641B32E75.F6A9064AF0BE80391782D836C2C032EE3C91EB70&title=Daft%20Punk%20-%20Lose%20Yourself%20To%20Dance"];
