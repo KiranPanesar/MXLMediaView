@@ -132,6 +132,7 @@
     [self dropDownView:_mediaImageView withGravityVelocity:(IS_DEVICE_IPAD ? 9.0f : 2.5f)];
 }
 
+// Method to show the video player
 -(void)showMoviePlayerView {
     _mediaPlayerController = [[MPMoviePlayerController alloc] initWithContentURL:_videoURL];
     [_mediaPlayerController.view setFrame:CGRectMake(0.0f, -180.0f, self.frame.size.width, 180.0f)];
@@ -142,6 +143,7 @@
     [self dropDownView:_mediaPlayerController.view withGravityVelocity:(IS_DEVICE_IPAD ? 10.0f : 3.5f)];
 }
 
+// Method to drop down an arbitrary UIView into the centre of the screen with a given velocity
 -(void)dropDownView:(UIView *)view withGravityVelocity:(float)velocity {
     // Set up UIKit Dynamic animator instance
     _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
