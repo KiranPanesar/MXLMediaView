@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MXLMediaView"
-  s.version      = "1.1"
+  s.version      = "1.1.0"
   s.summary      = "This is a class designed to show an image or video, and blur & shrink the background. Similar to the Facebook app."
 
   s.description  = <<-DESC
@@ -16,10 +16,10 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.source       = { 
                      :git => "https://github.com/KiranPanesar/MXLMediaView.git",
-                     :branch => "master"
+                     :tag => "v1.1"
                    }
 
   s.source_files  = 'Classes', 'MXLMediaView/**/*.{h,m}'
   s.requires_arc = true
-  
+
 end
