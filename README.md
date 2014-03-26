@@ -28,6 +28,20 @@ And then:
     }];
 }
 ```
+or to show a video...
+```objectivec
+-(void)pushShowVideoButton:(id)sender {
+    MXLMediaView *mediaView = [[MXLMediaView alloc] init];
+    [mediaView setDelegate:self];
+    
+    // The best video on the Internet.
+    NSURL *videoURL = [NSURL URLWithString:@"http://website.com/video.mp4"];
+    
+    [mediaView showVideoWithURL:videoURL inParentView:self.navigationController.view completion:^{
+        NSLog(@"Complete");
+    }];
+}
+```
 
 Delegate methods:
 ```objectivec
