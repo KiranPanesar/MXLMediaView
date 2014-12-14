@@ -10,29 +10,29 @@
 	<string>ExampleProject</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D17D449B-5534-463F-8BE3-2D45E2D548E4</key>
+		<key>3E999FECC13520DBA972B448D6D97D75DA8411FA</key>
 		<string>https://github.com/KiranPanesar/MXLMediaView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ExampleProject/ExampleProject.xcodeproj/project.xcworkspace</string>
+	<string>ExampleProject/ExampleProject.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D17D449B-5534-463F-8BE3-2D45E2D548E4</key>
+		<key>3E999FECC13520DBA972B448D6D97D75DA8411FA</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/KiranPanesar/MXLMediaView.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D17D449B-5534-463F-8BE3-2D45E2D548E4</string>
+	<string>3E999FECC13520DBA972B448D6D97D75DA8411FA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D17D449B-5534-463F-8BE3-2D45E2D548E4</string>
+			<string>3E999FECC13520DBA972B448D6D97D75DA8411FA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MXLMediaView</string>
 		</dict>
