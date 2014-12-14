@@ -228,6 +228,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "MobileX Labs";
 				TargetAttributes = {
+					6BD4847818A7BDAA0066A7D2 = {
+						DevelopmentTeam = QN6BB8E6WE;
+					};
 					6BD4849918A7BDAA0066A7D2 = {
 						TestTargetID = 6BD4847818A7BDAA0066A7D2;
 					};
@@ -399,11 +402,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExampleProject/ExampleProject-Prefix.pch";
 				INFOPLIST_FILE = "ExampleProject/ExampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8A9EF909-909C-48FB-9ADF-56669514DCCD";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -414,11 +419,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExampleProject/ExampleProject-Prefix.pch";
 				INFOPLIST_FILE = "ExampleProject/ExampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8A9EF909-909C-48FB-9ADF-56669514DCCD";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

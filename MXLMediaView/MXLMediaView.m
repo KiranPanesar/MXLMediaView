@@ -174,11 +174,11 @@
     // Animation to shrink it to nothing
     [UIView animateWithDuration:0.2 animations:^{
         CGAffineTransform imageViewTransform = _mediaImageView.transform;
-        [_mediaImageView setTransform:CGAffineTransformScale(imageViewTransform, 0, 0)];
+        [_mediaImageView setTransform:CGAffineTransformScale(imageViewTransform, 0.001f, 0.001f)];
         [_mediaImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
         
         CGAffineTransform movieViewTransform = _mediaPlayerController.view.transform;
-        [_mediaPlayerController.view setTransform:CGAffineTransformScale(movieViewTransform, 0, 0)];
+        [_mediaPlayerController.view setTransform:CGAffineTransformScale(movieViewTransform, 0.001f, 0.001f)];
         [_mediaPlayerController.view setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
     } completion:^(BOOL finished) {
         [_mediaPlayerController stop]; // Now it's hidden, stop playback completely
