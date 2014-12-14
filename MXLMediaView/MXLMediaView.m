@@ -77,9 +77,14 @@
     
     // Set up background imageview
     // This is used to replace the parentView in the backgroud, allowing us to efficiently blur
-    _backgroundImageView = [[UIImageView alloc] initWithFrame:parentView.frame];
-    [_backgroundImageView setImage:[self blurredImageFromView:parentView]]; // Blur
-    [_backgroundImageView setAlpha:0.0f];                                   // Make invisible
+    // We're setting this to be 1.2x the size of the parentView so the parent view will be smaller than the bounds
+    // of _backgroundImageView, so when we blur the view it will blur around the bounds, rather than clipping.
+    _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, parentView.frame.size.width * 1.2, parentView.frame.size.height * 1.2)];
+    [_backgroundImageView setContentMode:UIViewContentModeCenter];
+    [_backgroundImageView setImage:[self captureView:parentView]];
+    [_backgroundImageView setImage:[self blurredImageFromView:_backgroundImageView]]; // Blur
+    [_backgroundImageView setAlpha:0.0f]; // Make invisible
+    [_backgroundImageView setCenter:parentView.center];
     
     [self addSubview:_backgroundImageView];
     
@@ -113,7 +118,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             // CATransform stuff
             CGAffineTransform transform = _backgroundImageView.transform;
-            [_backgroundImageView setTransform:CGAffineTransformScale(transform, 0.9, 0.9)];
+            [_backgroundImageView setTransform:CGAffineTransformScale(transform, 0.8, 0.8)];
             [_backgroundImageView setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, [UIScreen mainScreen].bounds.size.height/2.0f)];
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }];
@@ -250,12 +255,12 @@
 }
 
 - (UIImage *)captureView:(UIView *)view {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    UIGraphicsBeginImageContext(screenRect.size);
+    CGRect captureRect = view.bounds;
+    UIGraphicsBeginImageContext(captureRect.size);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     [[UIColor blackColor] set];
-    CGContextFillRect(ctx, screenRect);
+    CGContextFillRect(ctx, captureRect);
     
     [view.layer renderInContext:ctx];
     
