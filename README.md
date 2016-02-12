@@ -61,7 +61,7 @@ Delegate methods:
 
 Installation
 -----
-MXLMediaView is now installable via Cocoapods!
+MXLMediaView is now installable via CocoaPods!
 ```ruby
 pod 'MXLMediaView', '~> 1.1'
 ```
