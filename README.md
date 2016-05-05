@@ -5,7 +5,7 @@ This is a class designed to show a UIImage and blur & shrink the background. Sim
 
 Compatibility
 --------
-MXLMediaView uses UIKit Dynamics for the gravity effect so is only compatible with iOS 7 right now.
+MXLMediaView uses UIKit Dynamics for the gravity effect so is only compatible with iOS 7 or newer.
 
 ![alt text](http://f.cl.ly/items/2M3v1X2I362H0O3s0f0O/MXLMediaViewDemo.gif "Demo gif")
 
